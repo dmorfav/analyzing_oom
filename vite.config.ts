@@ -2,9 +2,9 @@
 
 import { defineConfig } from 'vite';
 import analog from '@analogjs/platform';
-import tailwindcss from '@tailwindcss/vite';
+import angular from '@analogjs/vite-plugin-angular';
+import tailwindcss from '@tailwindcss/vite'
 
-// https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   build: {
     target: ['es2020'],
@@ -16,18 +16,32 @@ export default defineConfig(({ mode }) => ({
     analog({
       content: {
         highlighter: 'shiki',
-      },
-      prerender: {
-        routes: ['/blog', '/blog/2022-12-27-my-first-post'],
-      },
+        shikiOptions: {
+          highlight: {
+            theme: 'nord'
+          },
+          highlighter: {
+            langs: [
+              'json',
+              'ts',
+              'tsx',
+              'js',
+              'jsx',
+              'html',
+              'css',
+              'angular-html',
+              'angular-ts',
+              'typescript',
+              'python',
+              'bash',
+            ],
+            themes: ['nord'],
+            additionalLangs: ['mermaid'],
+          },
+        },
+      }
     }),
-    tailwindcss()
-  ],
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: ['src/test-setup.ts'],
-    include: ['**/*.spec.ts'],
-    reporters: ['default'],
-  },
+    angular(),
+    tailwindcss(),
+  ]
 }));

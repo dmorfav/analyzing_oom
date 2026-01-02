@@ -21,6 +21,11 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([requestContextInterceptor])
     ),
     provideClientHydration(withEventReplay()),
-    provideContent(withMarkdownRenderer(), withShikiHighlighter()),
+    provideContent(
+      withMarkdownRenderer({
+        loadMermaid: !import.meta.env.SSR ? () => import('mermaid') : undefined,
+      }),
+      withShikiHighlighter()
+    ),
   ],
 };
