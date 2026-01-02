@@ -1,6 +1,6 @@
 # analyzing_oom
 
-This project was generated with [Analog](https://analogjs.org), the fullstack meta-framework for Angular.
+This repo is a PoC to show how the AnalogJS build can fail with limited memory. The goal is to reproduce the out-of-memory behavior and measure render costs under constrained environments.
 
 ## Setup
 
@@ -12,7 +12,9 @@ Run `npm start` for a dev server. Navigate to `http://localhost:5173/`. The appl
 
 ## Build
 
-Run `npm run build` to build the client/server project. The client build artifacts are located in the `dist/analog/public` directory. The server for the API build artifacts are located in the `dist/analog/server` directory.
+- `npm run build` — build client/server normally (artifacts in `dist/analog/public` and `dist/analog/server`).
+- `npm run build:oom` — forces the build to run with 2048 MB (`--max-old-space-size=2048`). This intentionally reproduces the OOM crash on low-memory environments.
+- `npm run build:gc` — runs the build with `--trace-gc` to log GC activity and measure render/build cost in detail.
 
 ## Test
 
